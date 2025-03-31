@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "tinylinks.in"; // Replace with your Render app URL
+const url = "https://urlshortnerservice-latest.onrender.com/"; // Replace with your Render app URL
 
 async function keepServerAlive() {
 	try {
@@ -8,8 +8,12 @@ async function keepServerAlive() {
 		console.log(
 			`Ping successful: ${response.status} at ${new Date().toISOString()}`
 		);
-	} catch (error) {
-		console.error(`Error pinging server: ${error.message}`);
+	} catch (error: unknown) {
+		if (error instanceof Error) {
+			console.error(`Error pinging server: ${error.message}`);
+		} else {
+			console.error("An unknown error occurred");
+		}
 	}
 }
 
