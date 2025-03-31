@@ -1,24 +1,33 @@
-name: Ping Render Server
+name: Keep Alive Service
 
 on:
-  schedule:
-    # Runs every 2 minutes
-    - cron: "*/2 * * * *"
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *" # Runs every 5 minutes
 
 jobs:
-  ping:
+  keep-alive:
     runs-on: ubuntu-latest
+    timeout-minutes: 10 # Prevent long-running jobs
+
+    env:
+      TARGET_URL: ${{ secrets.TARGET_URL }}
+      INTERVAL: 300000 # 5 minutes (matches cron schedule)
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: 20
+
       - name: Install dependencies
-        run: |
-          npm install
-      - name: Run ping script
-        run: |
-          npx ts-node ping.ts
+        run: npm ci
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Run keep-alive
+        run: npm start

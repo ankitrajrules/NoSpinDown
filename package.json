@@ -1,18 +1,16 @@
 {
-  "name": "nospindown",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@types/node": "^22.13.14",
-    "axios": "^1.8.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
-  }
+	"name": "keep-alive",
+	"version": "1.0.0",
+	"main": "dist/keep-alive.js",
+	"scripts": {
+		"build": "tsc",
+		"start": "node dist/keep-alive.js"
+	},
+	"dependencies": {
+		"axios": "^1.6.2"
+	},
+	"devDependencies": {
+		"typescript": "^5.3.3",
+		"@types/node": "^20.11.5"
+	}
 }
