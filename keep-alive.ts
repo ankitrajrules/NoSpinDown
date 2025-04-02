@@ -1,8 +1,8 @@
 import axios from "axios";
-//import { setInterval } from "timers/promises";
+import { setInterval } from "timers/promises";
 
 const URL = process.env.TARGET_URL || "https://your-api-endpoint.com/health";
-//const INTERVAL = parseInt(process.env.INTERVAL || "60000"); // Default 1 minute
+const INTERVAL = parseInt(process.env.INTERVAL || "60000"); // Default 1 minute
 
 async function hitEndpoint() {
 	try {
@@ -17,15 +17,18 @@ async function hitEndpoint() {
 	}
 }
 
-async () => {
-	console.log(`Starting keep-alive hit for ${URL}`);
-	await hitEndpoint();
-};
-// (async () => {
-// 	console.log(
-// 		`Starting keep-alive service for ${URL} every ${INTERVAL / 1000} seconds`
-// 	);
-// 	for await (const _ of setInterval(INTERVAL)) {
-// 		await hitEndpoint();
-// 	}
-// })();
+// async () => {
+// 	console.log(`Starting keep-alive hit for ${URL}`);
+// 	await hitEndpoint();
+// };
+(async () => {
+	console.log(
+		`Starting keep-alive service for ${URL} every ${INTERVAL / 1000} seconds`
+	);
+	for (let i = 0; i < INTERVAL / 1000; ++i) {
+		await hitEndpoint();
+	}
+	// for await (const _ of setInterval(INTERVAL)) {
+	// 	await hitEndpoint();
+	// }
+})();
